@@ -9,7 +9,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        Trương Tấn Trung Welcome
         <MyComponent></MyComponent>
       </div>
     );

@@ -1,17 +1,30 @@
 import React from "react";
+import UserInfo from "./UserInfo";
+import DisplayInfo from "./DisplayInfo";
 
 class MyComponent extends React.Component {
-    state = {
-        name: 'Tấn Trung',
-        age: 21,
-        address: 'Đà Lạt'
-    }
     render() {
         return (
             <div>
-                My name is: {this.state.name}
-                My age: {this.state.age}
-                Address: {this.state.address}
+                {/* <button onClick={(event) => { this.handleClick(event) }}>UPDATE</button> */}
+                {/* <form onSubmit={(event) => { this.handleOnSubmit(event) }}>
+                    <label>Your Name: </label>
+                    <input
+                        value={this.state.name}
+                        type="TEXT"
+                        onChange={(event) => { this.handleOnChangeInput(event) }} />
+                    <label>Your Age: </label>
+                    <input
+                        value={this.state.age}
+                        type="TEXT"
+                        onChange={(event) => { this.handleOnChangeAge(event) }} />
+                    <button>SUBMIT</button>
+                </form> */}
+                <UserInfo></UserInfo>
+                <br /><br />
+                <DisplayInfo name="Tntt" age="24" />
+                <hr />
+                <DisplayInfo name="Tan Trung" age="21" />
             </div>
 
         );
