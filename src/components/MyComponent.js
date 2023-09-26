@@ -1,5 +1,5 @@
 import React from "react";
-import UserInfo from "./UserInfo";
+import AddUserInfo from "./AddUserInfo";
 import DisplayInfo from "./DisplayInfo";
 
 class MyComponent extends React.Component {
@@ -8,9 +8,16 @@ class MyComponent extends React.Component {
             { id: 1, name: "Tntt", age: "18" },
             { id: 2, name: "Tan Trung", age: "25" },
             { id: 3, name: "June", age: "35" },
-            { id: 3, name: "YV", age: "10" }
+            { id: 4, name: "YV", age: "10" }
         ]
     }
+    handleAddNewUser = (userObj) => {
+        console.log("check ", userObj);
+        this.setState({
+            listUsers: [userObj, ...this.state.listUsers]
+        })
+    }
+
     render() {
         return (
             <div>
@@ -28,9 +35,12 @@ class MyComponent extends React.Component {
                         onChange={(event) => { this.handleOnChangeAge(event) }} />
                     <button>SUBMIT</button>
                 </form> */}
-                <UserInfo></UserInfo>
+                <AddUserInfo
+                    handleAddNewUser={this.handleAddNewUser} />
                 <br /><br />
-                <DisplayInfo listUsers={this.state.listUsers} />
+                <DisplayInfo listUsers={this.state.listUsers}
+
+                />
             </div>
 
         );
