@@ -19,8 +19,9 @@ class MyComponent extends React.Component {
     }
 
     render() {
+        const test = { name: 'joey', age: 21 };
         return (
-            <div>
+            <>
                 {/* <button onClick={(event) => { this.handleClick(event) }}>UPDATE</button> */}
                 {/* <form onSubmit={(event) => { this.handleOnSubmit(event) }}>
                     <label>Your Name: </label>
@@ -35,13 +36,18 @@ class MyComponent extends React.Component {
                         onChange={(event) => { this.handleOnChangeAge(event) }} />
                     <button>SUBMIT</button>
                 </form> */}
-                <AddUserInfo
-                    handleAddNewUser={this.handleAddNewUser} />
-                <br /><br />
-                <DisplayInfo listUsers={this.state.listUsers}
+                {JSON.stringify(test)}
+                <div className="a">
+                    <AddUserInfo
+                        handleAddNewUser={this.handleAddNewUser} />
+                    <br /><br />
+                    <DisplayInfo listUsers={this.state.listUsers}
 
-                />
-            </div>
+                    />
+                </div>
+                <div className="b">
+                </div>
+            </>
 
         );
     }
