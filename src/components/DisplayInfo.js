@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './DisplayInfo.scss';
 
 // class DisplayInfo extends React.Component {
@@ -39,7 +39,14 @@ const DisplayInfo = (props) => {
     const handleShowHideListUser = () => {
         setShowHideListUsers(!isShowHideListUsers);
     }
-
+    console.log('Call me render')
+    useEffect(() => {
+        if (listUsers.length === 0) {
+            alert('You delete all user')
+        }
+        console.log('Call me useEffect')
+    }, [listUsers]
+    );
     return (
         <div className='display-infor-container'>
             <div>
@@ -50,7 +57,6 @@ const DisplayInfo = (props) => {
             {isShowHideListUsers &&
                 <div>
                     {listUsers.map((user) => {
-                        // console.log(">>check map", user);
                         return (
                             <div key={user.id} className={+user.age > 20 ? "green" : "red"}>
                                 <div>
