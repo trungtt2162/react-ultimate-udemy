@@ -8,13 +8,97 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+@media (min-width: 1350px){
+.container, .container-lg, .container-md, .container-sm {
+    max-width: 1350px !important;
+}
+}
 .app-container {
   .header-container {
-    .navbar-nav {
+    .btn-login {
+      background-color: #ffffff00;
+      border-color: #1a1a19;
+      border-radius: 5px;
+      border-style:solid; 
+      border-width: 1px;
+      color: #1a1a19;
+     // font-family: apercu-pro;
+      font-weight: 500;
+      justify-content: center;
+      line-height: 24px;
+      padding: 8px 16px;
+      text-align: center;
+      margin-right: 10px;
+  }
+  .btn-signup {
+    background-color:  #1a1a19;
+    border-color: #1a1a19;
+    border-radius: 5px;
+    border-style:solid; 
+    border-width: 1px;
+    color: #ffffff;
+    // font-family: apercu-pro;
+    font-weight: 500;
+    justify-content: center;
+    line-height: 24px;
+    padding: 8px 16px;
+    text-align: center;
+    &:hover {
+      background-color: #3e3e3e;
+    }
+  }
+    .navbar {
+      z-index: 10;
+      background-color: rgba(0, 0, 0, 0) !important;
+      padding: 20px;
       .nav-link {
         &.active {
           color: rgb(255, 119, 142);
         }
+      }
+    }
+  }
+}
+
+
+
+.homepage-container {
+  .homepage-video {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  }
+  .homepage-content{
+      padding-top: 100px;
+      padding-left: 100px;
+      width: 45%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    .tittle{
+      font-size: 59px;
+    }
+    .description{
+      font-size: 25px;
+    }
+    .homepage-button{
+      padding-top: 10px;
+      .homepage-button-main{
+        background-color:  #1a1a19;
+        border-color: #1a1a19;
+        border-radius: 5px;
+        border-style:solid; 
+        border-width: 1px;
+        color: #ffffff;
+        font-weight: 500;
+        justify-content: center;
+        line-height: 24px;
+        padding: 10px 20px;
+        text-align: center;
+    &:hover {
+      background-color: #3e3e3e;
+    }
       }
     }
   }
