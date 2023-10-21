@@ -2,7 +2,7 @@
 const TableUser = (props) => {
 
     //  const [listUsers, setListUsers] = useState([])
-    const { listUsers } = props;
+    const { listUsers, handleClickBtnUpdateUser } = props;
 
     return (
         <>
@@ -27,7 +27,8 @@ const TableUser = (props) => {
                                     <td>{item.role}</td>
                                     <td>
                                         <button className="btn btn-outline-info">View</button>
-                                        <button className="btn btn-warning mx-2">Update</button>
+                                        <button className="btn btn-warning mx-2"
+                                            onClick={() => handleClickBtnUpdateUser(item)}>Update</button>
                                         <button className="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>
