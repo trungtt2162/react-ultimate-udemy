@@ -6,7 +6,7 @@ import { BsCardImage } from "react-icons/bs";
 import { toast } from 'react-toastify';
 import { postCreateNewUser } from './../../../services/apiServices';
 const ModalCreateUser = (props) => {
-    const { show, setShow } = props;
+    const { show, setShow, setCurrentPage, fetchListUsersWithPaginate } = props;
     const handleClose = () => {
         setShow(false)
         setEmail("");
@@ -52,7 +52,8 @@ const ModalCreateUser = (props) => {
         if (data && data.EC === 0) {
             toast.success(data.EM)
             handleClose();
-            await props.fetchListUsers();
+            setCurrentPage(1);
+            await fetchListUsersWithPaginate(1);
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);

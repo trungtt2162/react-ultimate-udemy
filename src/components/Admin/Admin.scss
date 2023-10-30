@@ -13,8 +13,10 @@
             border: none;
         }
         .admin-main{
-            height: 40px;
-            border: none;
+            .user-pagination {
+                display: flex;
+                justify-content: center;
+            }
         }
     }
 }
