@@ -1,15 +1,46 @@
 import { useState } from 'react';
 import './Login.scss'
+import { useNavigate } from 'react-router-dom';
+import { postLogin } from '../../services/apiServices';
+import { toast } from 'react-toastify';
+
 const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const handlleLogin = () => {
-        alert('Login')
+    const navigate = useNavigate();
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
+    const handlleLogin = async () => {
+        //validate
+        const isValidateEmail = validateEmail(email);
+        if (!isValidateEmail) {
+            toast.error('Invalid Email !!!')
+            return;
+        }
+        if (!password) {
+            toast.error('Invalid Password !!!')
+            return;
+        }
+        //submit
+        let res = await postLogin(email, password);
+        if (res && +res.EC === 0) {
+            toast.success(res.EM);
+            navigate('/admin/manage-users');
+        }
+        if (res && +res.EC !== 0) {
+            toast.error(res.EM);
+        }
     }
     return (
         <div className="login-container">
             <div className='header' >
-                Don't have an account yet?
+                <span>Don't have an account yet?</span>
+                <button className="btn-signup">Sign up</button>
             </div>
             <div className='title col-3 mx-auto'>
                 TNTT 21
@@ -45,7 +76,10 @@ const Login = (props) => {
                         className='btn-submit'
                         onClick={() => handlleLogin()}>Login in to TNTT21</button>
                 </div>
-
+                <div className='text-center'>
+                    <span className='back' onClick={() => { navigate('/') }}>
+                        &#60;&#60; Go to Homepage</span>
+                </div>
             </div>
 
         </div>
