@@ -40,10 +40,12 @@ const Login = (props) => {
         <div className="login-container">
             <div className='header' >
                 <span>Don't have an account yet?</span>
-                <button className="btn-signup">Sign up</button>
+                <button className="btn-signup" onClick={() => { navigate('/signup') }}>
+                    Sign up
+                </button>
             </div>
-            <div className='title col-3 mx-auto'>
-                TNTT 21
+            <div className='title col-3 mx-auto' >
+                <span onClick={() => { navigate('/') }}>TNTT 21</span>
             </div>
             <div className='welcome col-3 mx-auto'>
                 Hello, who's this?

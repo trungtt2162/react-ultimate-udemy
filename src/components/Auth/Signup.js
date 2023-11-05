@@ -2,11 +2,9 @@ import './Signup.scss'
 import signupBg from '../../assets/bg3.jpg';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { Icon } from 'react-icons-kit';
-import { eyeOff } from 'react-icons-kit/feather/eyeOff';
-import { eye } from 'react-icons-kit/feather/eye'
 import { postRegister } from '../../services/apiServices';
 import { toast } from 'react-toastify';
+import { VscEye, VscEyeClosed } from "react-icons/vsc";
 
 const Signup = (props) => {
     const navigate = useNavigate();
@@ -15,14 +13,14 @@ const Signup = (props) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("");
     const [type, setType] = useState('password');
-    const [icon, setIcon] = useState(eyeOff);
+    const [icon, setIcon] = useState(<VscEyeClosed />);
 
     const handleToggle = () => {
         if (type === 'password') {
-            setIcon(eye);
+            setIcon(<VscEyeClosed />);
             setType('text')
         } else {
-            setIcon(eyeOff)
+            setIcon(<VscEye />)
             setType('password')
         }
     }
@@ -81,7 +79,7 @@ const Signup = (props) => {
                     </button >
                 </div>
                 <div className='title col-3 mx-auto'>
-                    TNTT 21
+                    <span onClick={() => { navigate('/') }}>TNTT 21</span>
                 </div>
                 <div className='welcome col-8 mx-auto'>
                     Get better data with conversational forms, surveys, quizzes & more.
@@ -105,7 +103,7 @@ const Signup = (props) => {
                             onChange={(event) => setUsername(event.target.value)}
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group pass-group'>
                         <input
                             type={type}
                             className='form-control'
@@ -114,9 +112,8 @@ const Signup = (props) => {
                             autoComplete="current-password"
                             onChange={(event) => setPassword(event.target.value)}
                         />
-                        {/*  */}
-                        <span onClick={handleToggle} className="flex justify-around items-center">
-                            <Icon className="absolute mr-10" icon={icon} size={25} />
+                        <span onClick={handleToggle} className="eyeicon">
+                            {icon}
                         </span>
                     </div>
 
