@@ -1,0 +1,43 @@
+.detail-quiz-container{
+    display: flex;
+    gap: 30px;
+    padding: 60px;
+    .left-content{
+        padding: 20px;
+        width: 60%;
+        background-color: rgb(255, 248, 240);
+        .title{
+            font-weight: 600;
+            font-size: 30px;
+        }
+        .q-content{
+            .question{
+                font-size: 20px;
+                font-weight: 500;
+                font-style: italic;
+            }
+            .img-question{
+                img{
+                height: 350px;
+                width: 450px;
+                justify-content: center;
+                }
+            }
+        }
+        .footer{
+            display: flex;
+            justify-content: center;
+            button{
+                margin: 10px;
+            }
+        }
+    }
+    .right-content{
+        width: 40%;
+        padding: 20px;
+        background-color: rgb(255, 248, 240);
+        
+
+    }
+
+}
