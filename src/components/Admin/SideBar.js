@@ -14,9 +14,10 @@ import { MdDashboard } from 'react-icons/md'
 import sidebarBg from '../../assets/bg2.jpg';
 import './SideBar.scss';
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 
 const SideBar = (props) => {
+    const navigate = useNavigate();
     const { image, collapsed, toggled, handleToggleSidebar } = props;
     return (
         <>
@@ -40,8 +41,12 @@ const SideBar = (props) => {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        <DiReact size={'3em'} color={"00bfff"} />
-                        <span>  TNTT21</span>
+                        <DiReact size={'3em'} color={"00bfff"}
+
+                        />
+                        <span onClick={() => navigate('/')}>
+                            TNTT21
+                        </span>
                     </div>
                 </SidebarHeader>
                 <SidebarContent>
@@ -95,7 +100,7 @@ const SideBar = (props) => {
                         </a>
                     </div>
                 </SidebarFooter>
-            </ProSidebar>
+            </ProSidebar >
         </>
     )
 }
