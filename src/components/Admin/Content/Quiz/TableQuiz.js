@@ -1,19 +1,11 @@
 import { useEffect, useState } from "react";
 import { getAllQuizForAdmin } from "../../../../services/apiServices";
 const TableQuiz = (props) => {
-    const [listQuiz, setListQuiz] = useState("");
+    const { fetchListQuiz, listQuiz, handleClickBtnViewQuiz, handleClickBtnUpdateQuiz, handleClickBtnDeleteQuiz } = props;
+
     useEffect(() => {
-        fetchQuiz();
+        fetchListQuiz();
     }, [])
-    const fetchQuiz = async () => {
-
-        let res = await getAllQuizForAdmin();
-        console.log('res', res)
-        if (res && res.EC === 0) {
-            setListQuiz(res.DT);
-
-        }
-    }
     return (
         <div>
             <table className="table table-hover table-bordered">
@@ -36,13 +28,13 @@ const TableQuiz = (props) => {
                                 <td>{item.difficulty}</td>
                                 <td>
                                     <button className="btn btn-outline-info"
-                                    // onClick={() => { handleClickBtnViewUser(item) }}
+                                        onClick={() => { handleClickBtnViewQuiz(item) }}
                                     >View</button>
                                     <button className="btn btn-warning mx-2"
-                                    // onClick={() => handleClickBtnUpdateUser(item)}
+                                        onClick={() => handleClickBtnUpdateQuiz(item)}
                                     >Update</button>
                                     <button className="btn btn-danger"
-                                    // onClick={() => handleClickBtnDeleteUser(item)}
+                                        onClick={() => handleClickBtnDeleteQuiz(item)}
                                     >Delete</button>
                                 </td>
                             </tr>

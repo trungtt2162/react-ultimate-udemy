@@ -1,26 +1,37 @@
 import './ManageQuiz.scss'
 import Select from 'react-select';
 import { BsCardImage } from "react-icons/bs";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { postCreateNewQuiz } from '../../../../services/apiServices';
+import { postCreateNewQuiz, getAllQuizForAdmin } from '../../../../services/apiServices';
 import TableQuiz from './TableQuiz';
 import Accordion from 'react-bootstrap/Accordion';
+import ModalViewQuiz from './ModalViewQuiz';
+import ModalUpdateQuiz from './ModalUpdateQuiz';
+import ModalDeleteQuiz from './ModalDeleteQuiz';
 const options = [
     { value: 'EASY', label: 'EASY' },
     { value: 'MEDIUM', label: 'MEDIUM' },
     { value: 'HARD', label: 'HARD' }
 ]
 const ManageQuiz = (props) => {
+    const [showModalViewQuiz, setShowModalViewQuiz] = useState(false);
+    const [showModalUpdateQuiz, setShowModalUpdateQuiz] = useState(false);
+    const [showModalDeleteQuiz, setShowModalDeleteQuiz] = useState(false);
+
+    const [dataUpdate, setDataUpdate] = useState({});
+    const [dataView, setDataView] = useState({});
+    const [dataDelete, setDataDelete] = useState({});
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [quizType, setQuizType] = useState('');
-    const [image, setImage] = useState('');
-    const [previewImage, setPreviewImage] = useState("");
+    const [newImage, setNewImage] = useState('');
+    const [previewNewImage, setNewPreviewImage] = useState("");
+    const [listQuiz, setListQuiz] = useState([])
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
-            setPreviewImage(URL.createObjectURL(event.target.files[0]));
-            setImage(event.target.files[0]);
+            setNewPreviewImage(URL.createObjectURL(event.target.files[0]));
+            setNewImage(event.target.files[0]);
         }
     }
     const handleSubmitQuiz = async (props) => {
@@ -28,17 +39,38 @@ const ManageQuiz = (props) => {
             toast.error("Name/Description is required!!");
             return;
         }
-        let data = await postCreateNewQuiz(name, description, quizType, image);
+        let data = await postCreateNewQuiz(name, description, quizType, newImage);
         if (data && data.EC === 0) {
             toast.success(data.EM);
             setName("");
             setDescription("");
             setQuizType("");
-            setImage(null);
-            setPreviewImage("");
+            setNewImage(null);
+            setNewPreviewImage("");
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
+        }
+    }
+    const handleClickBtnViewQuiz = (user) => {
+        setShowModalViewQuiz(!showModalViewQuiz);
+        setDataView(user);
+    }
+    const handleClickBtnUpdateQuiz = (user) => {
+        setShowModalUpdateQuiz(!showModalUpdateQuiz);
+        setDataUpdate(user);
+    }
+    const handleClickBtnDeleteQuiz = (user) => {
+        setShowModalDeleteQuiz(!showModalDeleteQuiz);
+        setDataDelete(user);
+    }
+    useEffect(() => {
+        fetchListQuiz();
+    }, []);
+    const fetchListQuiz = async () => {
+        let res = await getAllQuizForAdmin();
+        if (res.EC === 0) {
+            setListQuiz(res.DT);
         }
     }
     return (
@@ -82,8 +114,8 @@ const ManageQuiz = (props) => {
                                     />
                                 </div>
                                 <div className='img-preview'>
-                                    {previewImage ?
-                                        <img src={previewImage} />
+                                    {previewNewImage ?
+                                        <img src={previewNewImage} />
                                         :
                                         <span>Preview Image</span>
                                     }
@@ -99,9 +131,32 @@ const ManageQuiz = (props) => {
                 </Accordion.Item>
             </Accordion>
             <div className="list-detail mt-3">
-                <TableQuiz />
+                <TableQuiz
+                    fetchListQuiz={fetchListQuiz}
+                    listQuiz={listQuiz}
+                    handleClickBtnUpdateQuiz={handleClickBtnUpdateQuiz}
+                    handleClickBtnViewQuiz={handleClickBtnViewQuiz}
+                    handleClickBtnDeleteQuiz={handleClickBtnDeleteQuiz}
+                />
             </div>
-
+            <ModalViewQuiz
+                show={showModalViewQuiz}
+                setShow={setShowModalViewQuiz}
+                dataView={dataView}
+            />
+            <ModalUpdateQuiz
+                show={showModalUpdateQuiz}
+                setShow={setShowModalUpdateQuiz}
+                fetchListQuiz={fetchListQuiz}
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+            />
+            <ModalDeleteQuiz
+                show={showModalDeleteQuiz}
+                setShow={setShowModalDeleteQuiz}
+                fetchListQuiz={fetchListQuiz}
+                dataDelete={dataDelete}
+            />
         </div>
     )
 }
